@@ -20,6 +20,6 @@ public class Product
         this.category = category;
         ProductRating rating = new ProductRating();
         idCounter = 0;
-        id = ++idCounter;
+        this.id = idCounter++;
     }
 }

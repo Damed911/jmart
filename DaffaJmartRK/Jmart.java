@@ -6,7 +6,8 @@ public class Jmart
         Jmart cetak = new Jmart();
     }
     public static Product createProduct(){
-         return null;
+        Product product = new Product("Playstation 5", 8, false, new PriceTag(8000000), ProductCategory.GAMING);
+        return product;
     }
     public static Coupon createCoupun(){
         return null;

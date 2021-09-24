@@ -10,7 +10,7 @@ public class PriceTag
     
     public PriceTag(double price){
         this.price = price;
-        discount = 0.0f;
+        discount = 0.0;
     }
 
     public PriceTag(double price, double discount){
@@ -27,7 +27,7 @@ public class PriceTag
             return BOTTOM_FEE;
         }
         else{
-            return (getDiscountedPrice() - (getDiscountedPrice() * COMMISION_MULTIPLIER));
+            return COMMISION_MULTIPLIER * getDiscountedPrice();
         }
     }
     
@@ -35,8 +35,7 @@ public class PriceTag
         if(discount >= 100.0){
             return 0.0;
         }
-        else{
-            return (price * (discount/100.0));
-        }
+        double cut = price * discount / 100.0;
+        return price - cut;
     }
 }
