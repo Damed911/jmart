@@ -10,7 +10,8 @@ public class Jmart
         return product;
     }
     public static Coupon createCoupun(){
-        return null;
+        Coupon coupon = new Coupon("WIB", 10, Coupon.Type.DISCOUNT, 10, 25.00);
+        return coupon;
     }
     public static ShipmentDuration createShipmentDuration(){
         return null;
