@@ -26,5 +26,5 @@ abstract class Invoice extends Recognizable implements FileParser
     public boolean read(String content){
         return false;
     }
-    abstract double getTotalPay();
+    public abstract double getTotalPay();
 }
