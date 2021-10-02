@@ -1,4 +1,7 @@
 package DaffaJmartRK;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Shipment implements FileParser
 {
@@ -8,6 +11,7 @@ public class Shipment implements FileParser
     public String receipt;
     
     public static class Duration{
+    public static SimpleDateFormat ESTIMATION_FORMAT = new SimpleDateFormat("E MMMM dd yyyy");
     public static Duration INSTANT = new Duration((byte) (1<<0));
     public static Duration SAME_DAY = new Duration((byte) (1<<1));
     public static Duration NEXT_DAY = new Duration((byte) (1<<2));
@@ -17,6 +21,23 @@ public class Shipment implements FileParser
     
     private Duration(byte bit){
         this.bit = bit;
+    }
+    public String getEstimatedArrival(Date reference){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(reference);
+        if(bit == Duration.NEXT_DAY.bit){
+            calendar.add(Calendar.DATE, 1);
+        }
+        else if(bit == Duration.REGULER.bit){
+            calendar.add(Calendar.DATE, 2);
+        }
+        else if(bit == Duration.KARGO.bit){
+            calendar.add(Calendar.DATE, 5);
+        }
+        else if(bit == Duration.INSTANT.bit || bit == Duration.SAME_DAY.bit){
+            calendar.add(Calendar.DATE, 0);
+        }
+        return ESTIMATION_FORMAT.format(calendar.getTime());
     }
     }
     public class MultiDuration{

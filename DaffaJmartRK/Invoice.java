@@ -1,8 +1,10 @@
 package DaffaJmartRK;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 abstract class Invoice extends Recognizable implements FileParser
 {
-    public String date;
+    public Date date;
     public int buyerId;
     public int productId;
     public int complaintId;
@@ -18,7 +20,7 @@ abstract class Invoice extends Recognizable implements FileParser
         super(id);
         this.buyerId = buyerId;
         this.productId = productId;
-        this.date = "27-09-2021";
+        this.date = new Date();
         this.rating = Rating.NONE;
         this.status = Status.WAITING_CONFIRMATION;
     }
