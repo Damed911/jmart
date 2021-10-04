@@ -6,9 +6,8 @@ public class Jmart
 {
     public static void main (String[] args){
         Jmart cetak = new Jmart();
-        System.out.println(Shipment.Duration.REGULER.getEstimatedArrival(new Date()));
-        Store store = new Store(1, "Muhammad Daffa Ajiputra", "Pasar Minggu", "087874898275");
-        System.out.println(store.validate());
+        Account account = new Account(1, "Daffa Ajiputra", "daffa.ajiputra@gmail.com", "damed-911");
+        System.out.println(account.validate());
         
     }
     /*public static Product createProduct(){
