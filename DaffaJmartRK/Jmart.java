@@ -5,9 +5,10 @@ import java.text.SimpleDateFormat;
 public class Jmart
 {
     public static void main (String[] args){
-        Jmart cetak = new Jmart();
+        /*Jmart cetak = new Jmart();
         Account account = new Account(1, "Daffa Ajiputra", "daffa.ajiputra@gmail.com", "damed-911");
-        System.out.println(account.validate());
+        System.out.println(account.validate());*/
+    	System.out.print("Hello from Eclipse");
         
     }
     /*public static Product createProduct(){
