@@ -62,9 +62,9 @@ public class Algorithm {
 		return null;
 	}
 	public static <T> T max(T first, T second){
-		return null;
+		return Algorithm.<T>max(first, second);
 	}
 	public static <T> T min(T first, T second) {
-		return null;
+		return Algorithm.<T>min(first, second);
 	}
 } 
