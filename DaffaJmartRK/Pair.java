@@ -8,7 +8,7 @@ public class Pair<T, U> {
 		
 	}
 	public Pair(T first, U second) {
-		this.first = fire;
+		this.first = first;
 		this.second = second;
 	}
 }

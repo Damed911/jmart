@@ -76,10 +76,16 @@ public class Algorithm {
 	public static <T> T find(Iterator<T> Array, Predicate<T>pred) {
 		return null;
 	}
-	public static <T> T max(T first, T second){
-		return Algorithm.<T>max(first, second);
+	public static <T extends Comparable<? super T>> T max(T first, T second){
+		if(first.compareTo(second) > 0) {
+			return first;
+		}
+		return second;
 	}
-	public static <T> T min(T first, T second) {
-		return Algorithm.<T>min(first, second);
+	public static <T extends Comparable<? super T>> T min(T first, T second) {
+		if(first.compareTo(second) < 0) {
+			return first;
+		}
+		return second;
 	}
 } 
