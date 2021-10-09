@@ -2,19 +2,34 @@ package DaffaJmartRK;
 import java.util.*;
 
 public class Algorithm {
-	private Algorithm(){
-		
-	}
+	private Algorithm(){}
 	public static <T> int count(T[] Array, T value){
-		return 0;
+		int count = 0;
+		for(T arrayValue : Array) {
+			if(arrayValue.equals(value)) {
+				count++;
+			}
+		}
+		return count;
 	}
-	
 	public static <T> int count(Iterable<T>iterable, T value) {
-		return 0;
+		int count = 0;
+		for(T t : iterable) {
+			if(t.equals(value)) {
+				count++;
+			}
+		}
+		return count;
 	}
 	
 	public static <T> int count(Iterator<T>iterator, T value) {
-		return 0;
+		int count = 0;
+		while(iterator.hasNext()) {
+			if(iterator.next().equals(value)) {
+				count++;
+			}
+		}
+		return count;
 	}
 	public static <T> int count(T[] Array, Predicate<T>pred) {
 		return 0;

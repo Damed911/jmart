@@ -5,7 +5,7 @@ public class Recognizable implements Comparable<Recognizable>
     public final int id;
     
     protected Recognizable(int id){
-        this.id = id;
+        this.id = ie;
     }
     public static <T extends Recognizable> int setClosingId(Class<T> clazz, int id) {
     	return 0;
