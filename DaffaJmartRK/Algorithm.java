@@ -59,13 +59,16 @@ public class Algorithm {
 		return true;
 	}
 	public static <T> T find(T[] Array, T value) {
-		return null;
+		final Iterator<T> a = Arrays.stream(Array).iterator();
+		return find(a, value);
 	}
 	public static <T> T find(Iterable<T> iterable, T value) {
-		return null;
+		final Iterator <T> a = iterable.iterator();
+		return find(a, value);
 	}
-	public static <T> T find(Iterator<T> Array, T value) {
-		return null;
+	public static <T> T find(Iterator<T> iterator, T value) {
+		final Predicate <T> pred = value::equals;
+		return find(iterator, pred);
 	}
 	public static <T> T find(T[] Array, Predicate<T>pred) {
 		return null;
@@ -73,7 +76,7 @@ public class Algorithm {
 	public static <T> T find(Iterable<T> iterable, Predicate<T>pred) {
 		return null;
 	}
-	public static <T> T find(Iterator<T> Array, Predicate<T>pred) {
+	public static <T> T find(Iterator<T> iterator, Predicate<T>pred) {
 		return null;
 	}
 	public static <T extends Comparable<? super T>> T max(T first, T second){
