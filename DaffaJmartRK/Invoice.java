@@ -1,9 +1,8 @@
 package DaffaJmartRK;
 import java.util.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-abstract class Invoice extends Recognizable implements FileParser
+abstract class Invoice extends Recognizable
 {
     public Date date;
     public int buyerId;
@@ -24,17 +23,12 @@ abstract class Invoice extends Recognizable implements FileParser
         public Date date;
         public String message;
     }
-    protected Invoice(int id, int buyerId, int productId){
-        super(id);
+    protected Invoice(int buyerId, int productId){
         this.buyerId = buyerId;
         this.productId = productId;
         this.date = new Date();
         this.rating = Rating.NONE;
         this.status = Status.WAITING_CONFIRMATION;
-    }
-    @Override
-    public boolean read(String content){
-        return false;
     }
     public abstract double getTotalPay();
 }

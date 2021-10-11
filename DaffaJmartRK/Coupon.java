@@ -2,7 +2,7 @@ package DaffaJmartRK;
 
 
 
-public class Coupon extends Recognizable implements FileParser
+public class Coupon extends Recognizable
 {
     public String name;
     public int code;
@@ -14,9 +14,8 @@ public class Coupon extends Recognizable implements FileParser
     public enum Type{
         DISCOUNT, REBATE;
     }
-    public Coupon(int id, String name, int code, Type type, double cut, double minimum)
+    public Coupon(String name, int code, Type type, double cut, double minimum)
     {
-        super(id);
         this.name = name;
         this.code = code;
         this.cut = cut;
@@ -45,9 +44,5 @@ public class Coupon extends Recognizable implements FileParser
             harga = priceTag.getAdjustedPrice() - this.cut;
         }
         return harga;
-    }
-    @Override
-    public boolean read(String content){
-        return false;
     }
 }

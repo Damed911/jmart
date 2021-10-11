@@ -3,7 +3,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Shipment implements FileParser
+public class Shipment
 {
     public String address;
     public int shipmentCost;
@@ -57,9 +57,5 @@ public class Shipment implements FileParser
         this.shipmentCost = shipmentCost;
         this.duration = duration;
         this.receipt = receipt;
-    }
-    @Override
-    public boolean read(String content){
-        return false;
     }
 }

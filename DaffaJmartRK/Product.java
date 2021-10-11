@@ -1,6 +1,6 @@
 package DaffaJmartRK;
 
-public class Product extends Recognizable implements FileParser
+public class Product extends Recognizable
 {
     public int storeId;
     public String name;
@@ -13,7 +13,6 @@ public class Product extends Recognizable implements FileParser
     
     public Product(int id, int storeId, String name, int weight, boolean conditionUsed,
     PriceTag priceTag, ProductCategory category, Shipment.MultiDuration multiDuration){
-        super(id);
         this.storeId = storeId;
         this.name = name;
         this.weight = weight;
@@ -21,10 +20,6 @@ public class Product extends Recognizable implements FileParser
         this.priceTag = priceTag;
         this.category = category;
         this.multiDuration = multiDuration;
-    }
-    @Override
-    public boolean read(String nama){
-        return false;
     }
     public String toString(){
         return

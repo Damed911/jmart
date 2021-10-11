@@ -2,7 +2,7 @@ package DaffaJmartRK;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Account extends Recognizable implements FileParser
+public class Account extends Recognizable
 {
     public static final String REGEX_EMAIL = "^[a-zA-Z0-9&*_~]+(\\.[a-zA-Z0-9&*_~]+)*@[a-zA-Z0-9][a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
     public static final String REGEX_PASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$";
@@ -11,14 +11,9 @@ public class Account extends Recognizable implements FileParser
     public String password;
     
     public Account(int id, String name, String email, String password){
-        super(id);
         this.name = name;
         this.email = email;
         this.password = password;
-    }
-    @Override
-    public boolean read(String content){
-        return false;
     }
     /*public String toString(){
         return
