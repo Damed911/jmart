@@ -1,23 +1,35 @@
 package DaffaJmartRK;
 
-public class Jmart
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.List;
+
+import javax.print.attribute.standard.Chromaticity;
+
+import com.google.gson.*;
+
+class Jmart
 {
-    public static void main (String[] args){
-        /*Jmart cetak = new Jmart();
-        Account account = new Account(1, "Daffa Ajiputra", "daffa.ajiputra@gmail.com", "damed-911");
-        System.out.println(account.validate());*/
-    	System.out.print("Hello from Eclipse");
-        
+    class Country{
+    	public String name;
+    	public int population;
+    	public List<String> listOfStates;
     }
-    /*public static Product createProduct(){
-        Product product = new Product("Playstation 5", 8, false, new PriceTag(8000000), ProductCategory.GAMING);
-        return product;
+    
+    public static void main(String[] args) {
+    	String filepath = "/Java OOP/Praktikum OOP/jmart/json/city.json";
+    	Gson gson = new Gson();
+    	try {
+    		BufferedReader br = new BufferedReader(new FileReader(filepath));
+    		Country input = gson.fromJson(br, Country.class);
+    		System.out.println("name: " + input.name);
+    		System.out.println("population: " + input.population);
+    		System.out.println("states: ");
+    		input.listOfStates.forEach(state -> System.out.println(state));
+    	}
+    	catch(IOException e) {
+    		e.printStackTrace();
+    	}
     }
-    public static Coupon createCoupun(){
-        Coupon coupon = new Coupon("WIB", 10, Coupon.Type.DISCOUNT, 10, 25.00);
-        return coupon;
-    }
-    public static ShipmentDuration createShipmentDuration(){
-        return null;
-    }*/
 }
