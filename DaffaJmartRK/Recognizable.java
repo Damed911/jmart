@@ -30,9 +30,8 @@ public class Recognizable implements Comparable<Recognizable>
     }
     @Override
     public int compareTo(Recognizable other) {
-    	if(this.id == other.id) {
-    		return 1;
-    	}
-    	return 0;
+    	if(this.id == other.id) return 0;
+    	if(this.id < other.id) return -1;
+    	return 1;
     }
 }
