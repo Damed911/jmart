@@ -2,7 +2,7 @@ package DaffaJmartRK;
 import java.util.Date;
 import java.util.ArrayList;
 
-abstract class Invoice extends Recognizable
+abstract class Invoice extends Serializable
 {
     public Date date;
     public int buyerId;

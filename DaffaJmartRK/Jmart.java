@@ -18,18 +18,12 @@ class Jmart
     }
     
     public static void main(String[] args) {
-    	String filepath = "/Java OOP/Praktikum OOP/jmart/json/city.json";
-    	Gson gson = new Gson();
-    	try {
-    		BufferedReader br = new BufferedReader(new FileReader(filepath));
-    		Country input = gson.fromJson(br, Country.class);
-    		System.out.println("name: " + input.name);
-    		System.out.println("population: " + input.population);
-    		System.out.println("states: ");
-    		input.listOfStates.forEach(state -> System.out.println(state));
-    	}
-    	catch(IOException e) {
-    		e.printStackTrace();
-    	}
+    	System.out.println("account id:" + new Account(null, null, null, -1).id);
+    	System.out.println("account id:" + new Account(null, null, null, -1).id);
+    	System.out.println("account id:" + new Account(null, null, null, -1).id);
+    	
+    	System.out.println("payment id:" + new Payment(-1, -1, -1, null).id);
+    	System.out.println("payment id:" + new Payment(-1, -1, -1, null).id);
+    	System.out.println("payment id:" + new Payment(-1, -1, -1, null).id);
     }
 }
