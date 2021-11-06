@@ -94,13 +94,25 @@ public class Algorithm {
 		return count;
 	}
 	public static <T> int count(T[] Array, Predicate<T>pred) {
-		return 0;
+		int counter = 0;
+		for(T arrayValue : Array) {
+			if(pred.predicate(arrayValue)) counter++;
+		}
+		return counter;
 	}
 	public static <T> int count(Iterable<T>iterable, Predicate<T>pred) {
-		return 0;
+		int counter = 0;
+		for(T t : iterable) {
+			if(pred.predicate(t)) counter++;
+		}
+		return counter;
 	}
 	public static <T> int count(Iterator<T>iterator, Predicate<T>pred) {
-		return 0;
+		int counter = 0;
+		while(iterator.hasNext()) {
+			if(pred.predicate(iterator.next())) counter++;
+		}
+		return counter;
 	}
 	public static <T> boolean exists(T[] Array, T value) {
 		return true;
@@ -133,12 +145,22 @@ public class Algorithm {
 		return find(iterator, pred);
 	}
 	public static <T> T find(T[] Array, Predicate<T>pred) {
+		for(T arrayValue : Array) {
+			if(pred.predicate(arrayValue)) return arrayValue;
+		}
 		return null;
 	}
 	public static <T> T find(Iterable<T> iterable, Predicate<T>pred) {
+		for(T t : iterable) {
+			if(pred.predicate(t)) return t;
+		}
 		return null;
 	}
 	public static <T> T find(Iterator<T> iterator, Predicate<T>pred) {
+		while(iterator.hasNext()) {
+			T temp = iterator.next();
+			if(pred.predicate(temp)) return temp;
+		}
 		return null;
 	}
 	public static <T extends Comparable<? super T>> T max(T first, T second){
