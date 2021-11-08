@@ -10,15 +10,13 @@ import com.google.gson.*;
 
 class Jmart
 {
-    public static List<Product> read(String filepath) throws FileNotFoundException{
-		filepath = "/Java OOP/Praktikum OOP/jmart/json/randomProductList.json";
-		Gson gson = new Gson();
-		List<Product> product = new ArrayList<>();
-		product = (List<Product>) gson.fromJson(filepath, Product.class);
-		return product;
-		
+    public static List<Product> filterByAccountId(List<Product> list, int AccountId, int page, int pageSize){
+    	return null;
     }
     public static List<Product> filterByCategory(List<Product> list, ProductCategory category){
+    	return null;
+    }
+    public static List<Product> filterByName(List<Product> list, String search, int page, int pageSize){
     	return null;
     }
     public static List<Product> filterByPrice(List<Product> list, double MinPrice, double MaxPrice){
@@ -42,4 +40,15 @@ class Jmart
     		t.printStackTrace();
     	}
     }
+    private static List<Product> paginate (List<Product> list, int page, int pageSize, 	Predicate<Product> pred){
+    	return null;
+    }
+    public static List<Product> read(String filepath) throws FileNotFoundException{
+		filepath = "/Java OOP/Praktikum OOP/jmart/json/randomProductList.json";
+		Gson gson = new Gson();
+		List<Product> product = new ArrayList<>();
+		product = (List<Product>) gson.fromJson(filepath, Product.class);
+		return product;		
+    }
+    
 }
