@@ -75,22 +75,14 @@ class Jmart
     	return list.stream().filter(tmp -> pred.predicate(tmp)).skip(page * pageSize).limit(pageSize).collect(Collectors.toList());
     	
     }
-    public static List<Product> read(String filepath){
+    public static List<Product> read(String filepath) throws FileNotFoundException, IOException{
     	List<Product> product = new ArrayList<>();
-    	try {
 		Gson gson = new Gson();
 		JsonReader reader = new JsonReader(new FileReader(filepath));
 		reader.beginArray();
 		while(reader.hasNext()) {
 			product.add(gson.fromJson(reader, Product.class));
 			}
-    	}
-    	catch(FileNotFoundException e) {
-    		e.printStackTrace();
-    	}
-    	catch(IOException e) {
-    		e.printStackTrace();
-    	}
     	return product;
     }
     
