@@ -57,14 +57,22 @@ class Jmart
     	System.out.println("payment id:" + new Payment(-1, -1, -1, null).id);*/
     	
     	try {
-    		List<Product> list = read("/Java OOP/Praktikum OOP/jmart/json/randomProductList.json");
+    		/*List<Product> list = read("/Java OOP/Praktikum OOP/jmart/json/randomProductList.json");
     		
-    		/*List<Product> filtered = filterByPrice(list, 0.0, 20000.0);
-    		filtered.forEach(product -> System.out.println(product.price));*/
+    		List<Product> filtered = filterByPrice(list, 0.0, 20000.0);
+    		filtered.forEach(product -> System.out.println(product.price));
     		List<Product> filteredByName = filterByName(list, "gtx", 1, 5);
     		filteredByName.forEach(product -> System.out.println(product.name));
     		List<Product> filteredByAccountId = filterByAccountId(list, 1, 0, 5);
-    		filteredByAccountId.forEach(product -> System.out.println(product.name));
+    		filteredByAccountId.forEach(product -> System.out.println(product.name));*/
+    		String filepath = "a/b/c/Account.json";
+    		
+    		JsonTable<Account> tableAccount = new JsonTable<>(Account.class, filepath);
+    		tableAccount.add(new Account("name", "email", "password", 50000));
+    		tableAccount.writeJson();
+    		
+    		tableAccount = new JsonTable<>(Account.class, filepath);
+    		tableAccount.forEach(account -> System.out.println(account.toString()));
     	}
     	catch(Throwable t){
     		t.printStackTrace();
