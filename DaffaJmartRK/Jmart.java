@@ -65,10 +65,10 @@ class Jmart
     		filteredByName.forEach(product -> System.out.println(product.name));
     		List<Product> filteredByAccountId = filterByAccountId(list, 1, 0, 5);
     		filteredByAccountId.forEach(product -> System.out.println(product.name));*/
-    		String filepath = "a/b/c/Account.json";
+    		String filepath = "C:/Java OOP/Praktikum OOP/jmart/json/Account.json";
     		
     		JsonTable<Account> tableAccount = new JsonTable<>(Account.class, filepath);
-    		tableAccount.add(new Account("name", "email", "password", 50000));
+    		tableAccount.add(new Account("name", "email", "password", 50000.0));
     		tableAccount.writeJson();
     		
     		tableAccount = new JsonTable<>(Account.class, filepath);

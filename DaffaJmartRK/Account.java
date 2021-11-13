@@ -18,12 +18,12 @@ public class Account extends Serializable
         this.password = password;
         this.balance = balance;
     }
-    /*public String toString(){
+    public String toString(){
         return
-        "name: "+this.name+" /n"+
-        "email: "+this.email+" /n"+
-        "password: "+this.password+" /n";
-    }*/
+        "name: "+this.name+"\n"+
+        "email: "+this.email+"\n"+
+        "password: "+this.password;
+    }
     public boolean validate(){
         Pattern pattern = Pattern.compile(REGEX_EMAIL);
         Matcher matcher = pattern.matcher(this.email);
