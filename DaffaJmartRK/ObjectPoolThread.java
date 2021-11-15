@@ -9,7 +9,7 @@ public class ObjectPoolThread<T> extends Thread{
 	private Function<T, Boolean> routine;
 	
 	public ObjectPoolThread(String name, Function<T, Boolean> routine) {
-		super(id);
+		super(name);
 		
 	}
 	public ObjectPoolThread(Function<T, Boolean> routine) {
