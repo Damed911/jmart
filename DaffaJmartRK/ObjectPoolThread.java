@@ -10,10 +10,10 @@ public class ObjectPoolThread<T> extends Thread{
 	
 	public ObjectPoolThread(String name, Function<T, Boolean> routine) {
 		super(name);
-		
+		this.routine = routine;
 	}
 	public ObjectPoolThread(Function<T, Boolean> routine) {
-		
+		this.routine = routine;
 	}
 	public synchronized void add (T object) {
 		objectPool.add(object);
@@ -23,7 +23,23 @@ public class ObjectPoolThread<T> extends Thread{
 	}
 	@Override
 	public void run() {
-		
+		while(!exitSignal){
+			try {
+				synchronized(this) {
+					System.out.println("i");
+					for(T t : objectPool) {
+						routine.apply(t);
+					}
+					try {
+						this.wait();
+					}catch(InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	public int size() {
 		return objectPool.size();
