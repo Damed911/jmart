@@ -50,7 +50,7 @@ class Jmart
 	public static long DELIVERED_LIMIT_MS = 0;
 	public static long ON_DELIVERY_LIMIT_MS = 0;
 	public static long ON_PROGRESS_LIMIT_MS = 0;
-	public static long WAITING_CONF_LIMIT_MS ;
+	public static long WAITING_CONF_LIMIT_MS = 0;
 	
     public static void main(String[] args) {
     	/*System.out.println("account id:" + new Account(null, null, null, -1).id);
