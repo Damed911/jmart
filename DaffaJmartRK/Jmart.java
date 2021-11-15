@@ -11,7 +11,7 @@ import com.google.gson.stream.JsonReader;
 
 class Jmart
 {
-    public static List<Product> filterByAccountId(List<Product> list, int accountId, int page, int pageSize){
+    /*public static List<Product> filterByAccountId(List<Product> list, int accountId, int page, int pageSize){
     	Predicate<Product> predicate = (temp -> (temp.accountId == accountId));
     	return paginate(list, page, pageSize, predicate);
     }
@@ -46,7 +46,12 @@ class Jmart
             }
         }
         return filtered;
-    }
+    }*/
+	public static long DELIVERED_LIMIT_MS = 0;
+	public static long ON_DELIVERY_LIMIT_MS = 0;
+	public static long ON_PROGRESS_LIMIT_MS = 0;
+	public static long WAITING_CONF_LIMIT_MS ;
+	
     public static void main(String[] args) {
     	/*System.out.println("account id:" + new Account(null, null, null, -1).id);
     	System.out.println("account id:" + new Account(null, null, null, -1).id);
@@ -65,20 +70,35 @@ class Jmart
     		filteredByName.forEach(product -> System.out.println(product.name));
     		List<Product> filteredByAccountId = filterByAccountId(list, 1, 0, 5);
     		filteredByAccountId.forEach(product -> System.out.println(product.name));*/
-    		String filepath = "C:/Java OOP/Praktikum OOP/jmart/json/Account.json";
+    		/*String filepath = "C:/Java OOP/Praktikum OOP/jmart/json/randomPaymentList.json";
     		
-    		JsonTable<Account> tableAccount = new JsonTable<>(Account.class, filepath);
-    		tableAccount.add(new Account("name", "email", "password", 50000.0));
+    		JsonTable<Account> table = new JsonTable<>(Account.class, filepath);
+    		ObjectPoolThread<Payment> paymentPool = new ObjectPoolThread<Payment>("Thread-PP", Jmart::paymentTimekeeper);
+    		paymentPool.start();
+    		table.forEach(payment -> paymentPool.add(payment));
+    		while(paymentPool.size() != 0);
+    			paymentPool.exit();
+    		while(paymentPool.isAlive());
+    			System.out.println("Thread exited successfully");
+    		Gson gson = new Gson();
+    		table.forEach(payment ->{
+    			String history = gson.toJson(payment.history);
+    			System.out.println(history);
+    		});*/
+    		/*tableAccount.add(new Account("name", "email", "password", 50000.0));
     		tableAccount.writeJson();
     		
     		tableAccount = new JsonTable<>(Account.class, filepath);
     		tableAccount.forEach(account -> System.out.println(account.toString()));
-    	}
+    	*/}
     	catch(Throwable t){
     		t.printStackTrace();
     	}
     }
-    private static List<Product> paginate (List<Product> list, int page, int pageSize, 	Predicate<Product> pred){
+    public static boolean paymentTimeKeeper(Payment payment) {
+    	return false;
+    }
+    /*private static List<Product> paginate (List<Product> list, int page, int pageSize, 	Predicate<Product> pred){
     	if(pageSize < 0 || page < 0) throw new IllegalArgumentException("Invalid Page Size: " + pageSize);
     	return list.stream().filter(tmp -> pred.predicate(tmp)).skip(page * pageSize).limit(pageSize).collect(Collectors.toList());
     	
@@ -93,5 +113,5 @@ class Jmart
 			}
     	return product;
     }
-    
+    */
 }
