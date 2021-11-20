@@ -37,9 +37,16 @@ public class JsonTable<T> extends Vector<T>{
 		return gson.fromJson(reader, clazz);
 	}
 	public static void writeJson(Object object, String filepath) throws IOException{
-		FileWriter writer = new FileWriter(filepath);
-		String text = gson.toJson(object);
-		writer.write(text);
+		File file = new File(filepath);
+		if(!file.exists()) {
+			File parent = file.getParentFile();
+			if(parent != null) {
+				parent.mkdirs();
+			}
+			file.createNewFile();
+		}
+		final FileWriter writer = new FileWriter(filepath);
+		writer.write(gson.toJson(object));
 		writer.close();
 	}
 	public void writeJson() throws IOException{
