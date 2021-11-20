@@ -59,12 +59,14 @@ class Jmart
         }
         return filtered;
     }*/
-	public static long DELIVERED_LIMIT_MS = 5000;
+	/*public static long DELIVERED_LIMIT_MS = 5000;
 	public static long ON_DELIVERY_LIMIT_MS = 5000;
 	public static long ON_PROGRESS_LIMIT_MS = 5000;
-	public static long WAITING_CONF_LIMIT_MS = 5000;
+	public static long WAITING_CONF_LIMIT_MS = 5000;*/
 	
     public static void main(String[] args) {
+    	
+    	
     	//SpringApplication.run(Jmart.class, args);
     	
     	/*System.out.println("account id:" + new Account(null, null, null, -1).id);
@@ -75,7 +77,7 @@ class Jmart
     	System.out.println("payment id:" + new Payment(-1, -1, -1, null).id);
     	System.out.println("payment id:" + new Payment(-1, -1, -1, null).id);*/
     	
-    	try {
+    	/*try {
     		/*List<Product> list = read("/Java OOP/Praktikum OOP/jmart/json/randomProductList.json");
     		
     		List<Product> filtered = filterByPrice(list, 0.0, 20000.0);
@@ -85,8 +87,8 @@ class Jmart
     		List<Product> filteredByAccountId = filterByAccountId(list, 1, 0, 5);
     		filteredByAccountId.forEach(product -> System.out.println(product.name));*/
     		
-    		JsonTable<Payment> table = new JsonTable<>(Payment.class, "C:/Users/ASUS/Documents/jmart/json/randomPaymentList.json");
-    		/*ObjectPoolThread<Payment> paymentPool = new ObjectPoolThread<Payment>("Thread-PP", Jmart::paymentTimekeeper);
+    		/*JsonTable<Payment> table = new JsonTable<>(Payment.class, "C:/Users/ASUS/Documents/jmart/json/randomPaymentList.json");
+    		ObjectPoolThread<Payment> paymentPool = new ObjectPoolThread<Payment>("Thread-PP", Jmart::paymentTimekeeper);
     		paymentPool.start();
     		table.forEach(payment -> paymentPool.add(payment));
     		while(paymentPool.size() != 0);
@@ -102,11 +104,11 @@ class Jmart
     		tableAccount.writeJson();
     		
     		tableAccount = new JsonTable<>(Account.class, filepath);
-    		tableAccount.forEach(account -> System.out.println(account.toString()));*/
+    		tableAccount.forEach(account -> System.out.println(account.toString()));
     	}
     	catch(Throwable t){
     		t.printStackTrace();
-    	}
+    	}*/
     	
     }
     public static boolean paymentTimeKeeper(Payment payment) {

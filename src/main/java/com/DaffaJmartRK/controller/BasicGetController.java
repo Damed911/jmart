@@ -14,7 +14,7 @@ public interface BasicGetController<T extends Serializable> {
 		return Algorithm.<T>paginate(getJsonTable(), page, pageSize, e -> true);
 	}
 	public abstract JsonTable<T> getJsonTable();
-	@GetMapping("value=/{id}")
+	@GetMapping("/{id}")
 	public @ResponseBody default T getById (int id) {
 		return Algorithm.<T>find(getJsonTable(), (e) -> e.id == id);
 	}

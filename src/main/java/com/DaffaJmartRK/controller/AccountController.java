@@ -42,4 +42,12 @@ public class AccountController implements BasicGetController<Account>
 	public Store registerStore (@RequestParam int id, @RequestParam String name, @RequestParam String address, @RequestParam String phoneNumber) {
 		return null;
 	}
+	@PostMapping("/{id}/topUp")
+	public boolean topUp (int id, double balance) {
+		for(Account temp : accountTable) {
+			if(temp.id == id) temp.balance = balance;
+			return true;
+			}
+		return false;
+		}
 }
