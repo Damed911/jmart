@@ -2,6 +2,8 @@ package com.DaffaJmartRK;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.DaffaJmartRK.dbjson.Serializable;
+
 public class Account extends Serializable
 {
     public static final String REGEX_EMAIL = "^[a-zA-Z0-9&*_~]+(\\.[a-zA-Z0-9&*_~]+)*@[a-zA-Z0-9][a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";

@@ -1,5 +1,8 @@
 package com.DaffaJmartRK;
 import java.util.Date;
+
+import com.DaffaJmartRK.dbjson.Serializable;
+
 import java.text.SimpleDateFormat;
 
 public class Complaint extends Serializable

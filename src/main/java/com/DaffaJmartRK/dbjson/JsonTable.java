@@ -1,4 +1,4 @@
-package com.DaffaJmartRK;
+package com.DaffaJmartRK.dbjson;
 import java.io.*;
 import java.util.Vector;
 import java.util.Collections;
@@ -21,16 +21,7 @@ public class JsonTable<T> extends Vector<T>{
 	             Collections.addAll(this, loaded);
 	          }
 		}
-		catch (FileNotFoundException e)
-        {
-            File f = new File(filepath);
-            File f1 =  f.getParentFile();
-            if(f1 != null)
-            {
-                f1.mkdirs();
-            }
-            f.createNewFile();
-        }
+		catch (FileNotFoundException e){}
     }
 	public static <T> T readJson(Class<T> clazz, String filepath) throws FileNotFoundException{
 		JsonReader reader = new JsonReader(new FileReader(filepath));

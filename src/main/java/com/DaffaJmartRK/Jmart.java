@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.DaffaJmartRK.dbjson.JsonTable;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import org.springframework.boot.SpringApplication;

@@ -1,6 +1,6 @@
 package com.DaffaJmartRK;
 
-
+import com.DaffaJmartRK.dbjson.Serializable;
 
 public class Coupon extends Serializable
 {
