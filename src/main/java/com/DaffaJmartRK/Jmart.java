@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.DaffaJmartRK.dbjson.JsonDBEngine;
 import com.DaffaJmartRK.dbjson.JsonTable;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
@@ -65,7 +66,9 @@ class Jmart
 	public static long WAITING_CONF_LIMIT_MS = 5000;*/
 	
     public static void main(String[] args) {
-    	
+    	JsonDBEngine.Run(Jmart.class);
+    	SpringApplication.run(Jmart.class, args);
+    	Runtime.getRuntime().addShutdownHook(new Thread(() -> JsonDBEngine.join()));
     	
     	//SpringApplication.run(Jmart.class, args);
     	
