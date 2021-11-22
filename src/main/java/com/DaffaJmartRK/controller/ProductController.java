@@ -2,6 +2,8 @@ package com.DaffaJmartRK.controller;
 
 import java.util.*;
 import org.springframework.web.bind.annotation.*;
+
+import com.DaffaJmartRK.Account;
 import com.DaffaJmartRK.Product;
 import com.DaffaJmartRK.ProductCategory;
 import com.DaffaJmartRK.dbjson.JsonAutowired;
@@ -12,7 +14,6 @@ public class ProductController implements BasicGetController<Product>{
 	
 	@JsonAutowired(filepath = "C:/Users/ASUS/Documents/jmart/json/randomProductList.json", value = Product.class)
 	public static JsonTable<Product> productTable;
-	
 	public JsonTable<Product> getJsonTable(){
 		return productTable;
 	}
@@ -23,7 +24,13 @@ public class ProductController implements BasicGetController<Product>{
 	}
 	@PostMapping("/create")
 	Product create(@RequestParam int accountId, @RequestParam String name, @RequestParam int weight, @RequestParam boolean conditionUsed, @RequestParam double price, 
-			@RequestParam double discount, @RequestParam ProductCategory category, @RequestParam byte ShipmentPlans) {
+			@RequestParam double discount, @RequestParam ProductCategory category, @RequestParam byte shipmentPlans) {
+		Account temp = new AccountController().getById(accountId);
+		if(temp != null && temp.store != null) {
+			Product temporary = new Product(accountId, name, weight, conditionUsed, price, discount, category, shipmentPlans);
+			productTable.add(temporary);
+			return temporary;
+		}
 		return null;
 	}
 	@GetMapping("/getFiltered")

@@ -23,7 +23,7 @@ public class Coupon extends Serializable
         this.minimum = minimum;
         this.used = false;
     }
-    public boolean isused(){
+    public boolean isUsed(){
         return this.used;
     }
     public boolean canApply(PriceTag priceTag){

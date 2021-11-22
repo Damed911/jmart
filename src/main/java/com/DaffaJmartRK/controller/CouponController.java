@@ -12,7 +12,7 @@ import com.DaffaJmartRK.dbjson.JsonTable;
 @RequestMapping("/coupon")
 public class CouponController implements BasicGetController<Coupon> {
 	
-	@JsonAutowired(filepath = "C:/Users/ASUS/Documents/jmart/json/randomProductList.json", value = Coupon.class)
+	@JsonAutowired(filepath = "C:/Users/ASUS/Documents/jmart/json/coupon.json", value = Coupon.class)
 	public static JsonTable<Coupon> couponTable;
 	
 	public JsonTable<Coupon> getJsonTable(){
@@ -20,7 +20,11 @@ public class CouponController implements BasicGetController<Coupon> {
 	}
 	
 	@GetMapping("/{id}/isUsed")
-	boolean isUsed(int id) {
+	boolean isUsed(@RequestParam int id) {
+		for(Coupon coupon : couponTable) {
+			if(coupon.id == id)
+				return coupon.isUsed();
+		}
 		return false;
 	}
 	@GetMapping("/{id}/canApply")
