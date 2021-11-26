@@ -5,57 +5,55 @@ import java.util.Date;
 
 public class Shipment
 {
+    public static final SimpleDateFormat ESTIMATION_FORMAT = new SimpleDateFormat();
+    public static final Plan INSTANT = new Plan((byte) (1 << 0));
+    public static final Plan KARGO = new Plan((byte) (1 << 1));
+    public static final Plan NEXT_DAY = new Plan((byte) (1 << 2));
+    public static final Plan REGULER = new Plan((byte) (1 << 3));
+    public static final Plan SAME_DAY = new Plan((byte) (1 << 4));
     public String address;
-    public int shipmentCost;
-    public Duration duration;
+    public int cost;
+    public byte plan;
     public String receipt;
     
-    public static class Duration{
-    public static SimpleDateFormat ESTIMATION_FORMAT = new SimpleDateFormat("E MMMM dd yyyy");
-    public static Duration INSTANT = new Duration((byte) (1<<0));
-    public static Duration SAME_DAY = new Duration((byte) (1<<1));
-    public static Duration NEXT_DAY = new Duration((byte) (1<<2));
-    public static Duration REGULER = new Duration((byte) (1<<3));
-    public static Duration KARGO = new Duration ((byte) (1<<4));
-    public byte bit;
-    
-    private Duration(byte bit){
-        this.bit = bit;
+    public static class Plan{
+    	public final byte bit;
+    	private Plan(byte bit) {
+    		this.bit = bit;
+    	}
     }
     public String getEstimatedArrival(Date reference){
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(reference);
-        if(bit == Duration.NEXT_DAY.bit){
-            calendar.add(Calendar.DATE, 1);
+    	Calendar cal = Calendar.getInstance();
+        cal.setTime(reference);
+        if (plan == INSTANT.bit || plan == SAME_DAY.bit){
+            cal.add(Calendar.DATE, 0);
         }
-        else if(bit == Duration.REGULER.bit){
-            calendar.add(Calendar.DATE, 2);
+        else if (plan == NEXT_DAY.bit){
+            cal.add(Calendar.DATE, 1);
         }
-        else if(bit == Duration.KARGO.bit){
-            calendar.add(Calendar.DATE, 5);
+        else if (plan == REGULER.bit){
+            cal.add(Calendar.DATE, 2);
         }
-        else if(bit == Duration.INSTANT.bit || bit == Duration.SAME_DAY.bit){
-            calendar.add(Calendar.DATE, 0);
+        else if (plan == KARGO.bit){
+            cal.add(Calendar.DATE, 5);
         }
-        return ESTIMATION_FORMAT.format(calendar.getTime());
+        return ESTIMATION_FORMAT.format(cal.getTime());
     }
+
+    public boolean isDuration(Plan reference){
+    	return (this.plan & reference.bit) != 0;
     }
-    public class MultiDuration{
-        public byte bit;
-        public MultiDuration(Duration[] args){
-        int flags = 0;
-        for (Duration arg : args)
-            flags |= arg.bit;
-        bit = (byte) flags;
+    public boolean isDuration(byte object, Plan reference) {
+    	if((object & reference.bit) == 0) {
+            return false;
+        }
+        return true;
     }
-    public boolean isDuration(Duration reference){
-        return (bit & reference.bit) != 0;
-    }
-    }
-    public Shipment(String address, int shipmentCost, Duration duration, String receipt){
+    
+    public Shipment(String address, int cost, byte plan, String receipt){
         this.address = address;
-        this.shipmentCost = shipmentCost;
-        this.duration = duration;
+        this.cost = cost;
+        this.plan = plan;
         this.receipt = receipt;
     }
 }

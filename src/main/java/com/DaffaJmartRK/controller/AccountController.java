@@ -74,7 +74,7 @@ public class AccountController implements BasicGetController<Account>
 		return null;
 	}
 	
-	@PostMapping("/{id}/topUp")
+	@PostMapping("/{id}/registerStore")
 	public Store registerStore (@RequestParam int id, @RequestParam String name, @RequestParam String address, @RequestParam String phoneNumber) {
 		return null;
 	}

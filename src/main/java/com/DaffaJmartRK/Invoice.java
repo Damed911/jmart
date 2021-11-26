@@ -5,7 +5,7 @@ import com.DaffaJmartRK.dbjson.Serializable;
 
 import java.util.ArrayList;
 
-abstract class Invoice extends Serializable
+public abstract class Invoice extends Serializable
 {
     public Date date;
     public int buyerId;

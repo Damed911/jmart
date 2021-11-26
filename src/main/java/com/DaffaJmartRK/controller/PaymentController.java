@@ -2,8 +2,12 @@ package com.DaffaJmartRK.controller;
 
 import org.springframework.web.bind.annotation.*;
 
+import com.DaffaJmartRK.Account;
+import com.DaffaJmartRK.Invoice;
 import com.DaffaJmartRK.ObjectPoolThread;
 import com.DaffaJmartRK.Payment;
+import com.DaffaJmartRK.Product;
+import com.DaffaJmartRK.Shipment;
 import com.DaffaJmartRK.dbjson.JsonAutowired;
 import com.DaffaJmartRK.dbjson.JsonTable;
 
@@ -21,23 +25,59 @@ public class PaymentController implements BasicGetController<Payment>{
 	public JsonTable<Payment> getJsonTable() {
 		return paymentTable;
 	}
-	@PostMapping("/{id}/accept")
-	public @ResponseBody boolean accept(@RequestParam int id) {
-		return false;
-	}
 	@PostMapping("/create")
-	public @ResponseBody boolean create (@RequestParam int buyerId, @RequestParam int productId, @RequestParam int productCount, @RequestParam String shipmentAddress, @RequestParam byte shipmentPlan) {
+    public Payment create(@RequestParam int buyerId, @RequestParam int productId, @RequestParam int productCount, @RequestParam String shipmentAddress, @RequestParam byte shipmentPlan) {
+    	Account account = new AccountController().getById(buyerId);
+    	Product product = new ProductController().getById(productId);
+    	Shipment shipment = new Shipment(shipmentAddress, 0, shipmentPlan, null);
+    	Payment payment = new Payment(buyerId, productId, productCount, shipment);
+    	double totalPay = payment.getTotalPay(product);
+    	if(account.balance > totalPay) {
+    		account.balance -= totalPay;
+    		Payment.Record record = new Payment.Record(Invoice.Status.WAITING_CONFIRMATION, "Pesan");
+    		payment.history.add(record);
+    		paymentTable.add(payment);
+    		poolThread.add(payment);
+    		return payment;
+    	}
+    	return null;
+    }
+	
+	@PostMapping("/{id}/accept")
+	public boolean accept(@RequestParam int id) {
+		Payment payment = new PaymentController().getById(id);
+		if(payment.history.get(payment.history.size() - 1).status == Invoice.Status.WAITING_CONFIRMATION) {
+			Payment.Record record = new Payment.Record(Invoice.Status.ON_PROGRESS, "Pesan");
+			payment.history.add(record);
+			return true;
+		}
 		return false;
 	}
+	
 	@PostMapping("/{id}/cancel")
-	public @ResponseBody boolean cancel (int id) {
+	public boolean cancel(@RequestParam int id) {
+		Payment payment = new PaymentController().getById(id);
+		if(payment.history.get(payment.history.size() - 1).status == Invoice.Status.WAITING_CONFIRMATION) {
+			Payment.Record record = new Payment.Record(Invoice.Status.CANCELLED, "Pesan");
+			payment.history.add(record);
+			return true;
+		}
 		return false;
 	}
+	
 	@PostMapping("/{id}/submit")
-	public @ResponseBody boolean submit (int id, String receipt) {
+	public boolean submit(@RequestParam int id, @RequestParam String receipt) {
+		Payment payment = new PaymentController().getById(id);
+		if(payment.history.get(payment.history.size() - 1).status == Invoice.Status.ON_PROGRESS && payment.shipment.receipt.isBlank() == false) {
+			payment.shipment.receipt = receipt;
+			Payment.Record record = new Payment.Record(Invoice.Status.ON_DELIVERY, "Pesan");
+			payment.history.add(record);
+			return true;
+		}
 		return false;
 	}
-	private static boolean timeKeeper(Payment payment) {
+	
+	private static boolean timekeeper(Payment payment) {
 		return false;
 	}
 }
