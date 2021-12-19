@@ -3,6 +3,11 @@ package com.DaffaJmartRK;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Model Class Payment
+ * @author ASUS
+ * @version Final
+ */
 public class Payment extends Invoice
 {
     public ArrayList<Record> history = new ArrayList<Record>();
@@ -28,8 +33,5 @@ public class Payment extends Invoice
     @Override
     public double getTotalPay(Product product){
         return 0.0;
-    }
-    public Invoice perform(){
-        return null;
     }
 }

@@ -1,7 +1,11 @@
 package com.DaffaJmartRK;
 
 
-
+/**
+ * Model Class Enumeration ProductCategory
+ * @author ASUS
+ * @version Final
+ */
 public enum ProductCategory
 {
     BOOK, KITCHEN, ELECTRONIC, FASHION, GAMING, GADGET, MOTHERCARE, COSMETICS,

@@ -2,6 +2,11 @@ package com.DaffaJmartRK;
 
 import com.DaffaJmartRK.dbjson.Serializable;
 
+/**
+ * Model Class Product
+ * @author ASUS
+ * @version Final
+ */
 public class Product extends Serializable
 {
     public int accountId;
@@ -25,13 +30,12 @@ public class Product extends Serializable
         this.shipmentPlans = shipmentPlans;
     }
     public String toString(){
-        return
-        "Name: "+this.name+" \n"+
-        "Weight: "+this.weight+" \n"+
-        "conditionUsed: "+this.conditionUsed+" \n"+
-        //"priceTag: "+this.priceTag+" \n"+
-        "category: "+this.category+" \n";
-        //"rating: "+this.rating+" \n"+
-        //"storeId: "+this.storeId+" \n";
+    	return("Name: " + name + 
+        		"\nWeight: " + weight +
+        		"\nconditionUsed: " + conditionUsed +
+               "\nprice: " + price +
+               "\ncategory: " + category +
+               "\ndiscount: " + discount +
+               "\naccountId: " + accountId);
     }
 }

@@ -1,8 +1,12 @@
 package com.DaffaJmartRK.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.web.bind.annotation.*;
 
 import com.DaffaJmartRK.Account;
+import com.DaffaJmartRK.Algorithm;
 import com.DaffaJmartRK.Invoice;
 import com.DaffaJmartRK.ObjectPoolThread;
 import com.DaffaJmartRK.Payment;
@@ -11,20 +15,73 @@ import com.DaffaJmartRK.Shipment;
 import com.DaffaJmartRK.dbjson.JsonAutowired;
 import com.DaffaJmartRK.dbjson.JsonTable;
 
+/**
+ * Class untuk mengatur pembayaran yang terjadi pada jmart
+ * @author ASUS
+ * @version Final
+ */
 @RequestMapping("/payment")
 public class PaymentController implements BasicGetController<Payment>{
+	/**
+	 * Instance Variable Payment Controller
+	 */
 	public static final long DELIVERED_LIMIT_MS = 3000;
 	public static final long ON_DELIVERY_LIMIT_MS = 3000;
 	public static final long ON_PROGRESS_LIMIT_MS = 3000;
 	public static final long WAITING_CONF_LIMIT_MS = 3000;
 	
-	@JsonAutowired(filepath = "C:/Users/ASUS/Documents/jmart/json/Payment.json", value = Payment.class)
+	@JsonAutowired(filepath = "C:\\Users\\ASUS\\Documents\\jmart\\json\\randomPaymentList.json", value = Payment.class)
 	public static JsonTable<Payment> paymentTable;
-	public static ObjectPoolThread<Payment> poolThread;
+	public static ObjectPoolThread<Payment> poolThread = new ObjectPoolThread<Payment>("Thread", PaymentController::timekeeper);
 	@Override
 	public JsonTable<Payment> getJsonTable() {
 		return paymentTable;
 	}
+	
+	/**
+	 * 
+	 * @param id
+	 * @param page
+	 * @param pageSize
+	 * @return
+	 */
+	@GetMapping("/{id}/page")
+    @ResponseBody List<Payment> getInvoices(@PathVariable int id, @RequestParam(defaultValue="0") int page, @RequestParam(defaultValue="1000") int pageSize){
+        List<Payment> paymentList = new ArrayList<>();
+        Account accountTarget = Algorithm.<Account>find(AccountController.accountTable,  a -> a.id == id);
+        if(accountTarget != null){
+            for(Payment payment : paymentTable){
+                for(Product product : ProductController.productTable){
+                    if(payment.productId == product.id && product.accountId == accountTarget.id){
+                        paymentList.add(payment);
+                    }
+                }
+            }
+        }
+        return Algorithm.paginate(paymentList, page, pageSize, e->true);
+    }
+	
+	/**
+	 * Method untuk mendapatkan invoice dari pembelian penjual
+	 * @param id		account id
+	 * @param page		page number
+	 * @param pageSize	ukuran page
+	 * @return
+	 */
+    @GetMapping("/{id}/purchases/page")
+    @ResponseBody List<Payment> getMyInvoices(@PathVariable int id, @RequestParam(defaultValue="0") int page, @RequestParam(defaultValue="1000") int pageSize){
+        return Algorithm.<Payment>paginate(getJsonTable(), page, pageSize, p -> p.buyerId == id);
+    }
+    
+    /**
+     * Method untuk membuat invoice dari pembelian
+     * @param buyerId
+     * @param productId
+     * @param productCount
+     * @param shipmentAddress
+     * @param shipmentPlan
+     * @return
+     */
 	@PostMapping("/create")
     public Payment create(@RequestParam int buyerId, @RequestParam int productId, @RequestParam int productCount, @RequestParam String shipmentAddress, @RequestParam byte shipmentPlan) {
     	Account account = new AccountController().getById(buyerId);
@@ -43,6 +100,11 @@ public class PaymentController implements BasicGetController<Payment>{
     	return null;
     }
 	
+	/**
+	 * Method untuk menerima pesanan dari customer
+	 * @param id
+	 * @return
+	 */
 	@PostMapping("/{id}/accept")
 	public boolean accept(@RequestParam int id) {
 		Payment payment = new PaymentController().getById(id);
@@ -53,7 +115,11 @@ public class PaymentController implements BasicGetController<Payment>{
 		}
 		return false;
 	}
-	
+	/**
+	 * Method untuk menggagalkan transaksi yang sedang berlangsung
+	 * @param id
+	 * @return
+	 */
 	@PostMapping("/{id}/cancel")
 	public boolean cancel(@RequestParam int id) {
 		Payment payment = new PaymentController().getById(id);
@@ -65,6 +131,12 @@ public class PaymentController implements BasicGetController<Payment>{
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @param receipt
+	 * @return
+	 */
 	@PostMapping("/{id}/submit")
 	public boolean submit(@RequestParam int id, @RequestParam String receipt) {
 		Payment payment = new PaymentController().getById(id);
@@ -78,6 +150,26 @@ public class PaymentController implements BasicGetController<Payment>{
 	}
 	
 	private static boolean timekeeper(Payment payment) {
-		return false;
+		if (payment.history.isEmpty()) {
+            return false;
+        } else {
+            Payment.Record record = payment.history.get(payment.history.size() - 1);
+            long elapsed = System.currentTimeMillis() - record.date.getTime();
+            if (record.status.equals(Invoice.Status.WAITING_CONFIRMATION) && (elapsed > WAITING_CONF_LIMIT_MS)) {
+                record.status = Invoice.Status.FAILED;
+                return true;
+            } else if (record.status.equals(Invoice.Status.ON_PROGRESS) && (elapsed > ON_PROGRESS_LIMIT_MS)) {
+                record.status = Invoice.Status.FAILED;
+                return true;
+            } else if (record.status.equals(Invoice.Status.ON_DELIVERY) && (elapsed > ON_PROGRESS_LIMIT_MS)) {
+                record.status = Invoice.Status.DELIVERED;
+                return true;
+            } else if (record.status.equals(Invoice.Status.DELIVERED) && (elapsed > DELIVERED_LIMIT_MS)) {
+                record.status = Invoice.Status.FINISHED;
+                return true;
+            } else {
+                return false;
+            }
+        }
 	}
 }

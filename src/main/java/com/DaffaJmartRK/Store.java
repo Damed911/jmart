@@ -4,6 +4,11 @@ import java.util.regex.Pattern;
 
 import com.DaffaJmartRK.dbjson.Serializable;
 
+/**
+ * Model Class Store
+ * @author ASUS
+ * @version Final
+ */
 public class Store extends Serializable
 {
     public static String REGEX_PHONE = "^\\d{9, 12}$";
