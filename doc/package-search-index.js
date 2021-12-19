@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.DaffaJmartRK.controller"},{"l":"com.DaffaJmartRK.dbjson"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.DaffaJmartRK"}]
