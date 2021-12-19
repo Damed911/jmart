@@ -22,10 +22,10 @@ public class Store extends Serializable
     public double balance;
     /**
      * Constructor Method class store
-     * @param name
-     * @param address
-     * @param phoneNumber
-     * @param balance
+     * @param name			nama toko
+     * @param address		alamat toko
+     * @param phoneNumber	telepon toko
+     * @param balance		saldo toko
      */
     public Store(String name, String address, String phoneNumber, double balance){
         this.name = name;
