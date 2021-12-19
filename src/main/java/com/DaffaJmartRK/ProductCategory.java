@@ -2,8 +2,8 @@ package com.DaffaJmartRK;
 
 
 /**
- * Model Class Enumeration ProductCategory
- * @author ASUS
+ * Enumeration Class ProductCategory
+ * @author M. Daffa Ajiputra
  * @version Final
  */
 public enum ProductCategory

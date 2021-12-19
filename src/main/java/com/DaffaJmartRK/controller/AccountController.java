@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 /**
- * Model Class AccountController
+ * Class untuk mengatur seluruh aspek pengaturan pada suatu akun
  * @author ASUS
  * @version Final
  */
@@ -127,7 +127,7 @@ public class AccountController implements BasicGetController<Account>
      * Method controller agar user dapat topUp ke Jmart
      * @param id		id user
      * @param balance	balance user
-     * @return
+     * @return boolean
      */
 	@PostMapping("/{id}/topUp")
     boolean topUp(@RequestParam int id, @RequestParam double balance){

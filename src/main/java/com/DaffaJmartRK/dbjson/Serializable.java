@@ -2,7 +2,12 @@ package com.DaffaJmartRK.dbjson;
 
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * Automatically assign id to an object with auto incrementing value.
+ * First instantiation starts with id 0.
+ * @author Netlab Team
+ * @version 0.1
+ */
 public class Serializable implements Comparable<Serializable>
 {
     public final int id;

@@ -9,7 +9,7 @@ import com.DaffaJmartRK.dbjson.Serializable;
 
 /**
  * Class BasicGetController untuk mendapatkan beberapa paramater basic
- * @author ASUS
+ * @author M. Daffa Ajiputra
  * @version Final
  * @param <T>
  */

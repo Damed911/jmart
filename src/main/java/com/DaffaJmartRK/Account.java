@@ -5,13 +5,13 @@ import java.util.regex.Pattern;
 import com.DaffaJmartRK.dbjson.Serializable;
 
 /**
- * Model Class Account
- * @author ASUS
+ * Class untuk melakukan pembuatan akun pada Jmart
+ * @author M. Daffa Ajiputra
  * @version Final
  */
 public class Account extends Serializable
 {
-	//Instance variable untuk class account
+		
 		public static final String REGEX_EMAIL = "^\\w+([\\.]?[&\\*~\\w+])*@\\w+([\\.-]?)*(\\.\\w{2,3})+$";
 	    public static final String REGEX_PASSWORD = "^(?=.*[0-9])(?=.*[a-z])(?=\\S+$)(?=.*[A-Z]).{8,}$";
 	    public double balance;
@@ -63,7 +63,6 @@ public class Account extends Serializable
 	    
 	    /**
 	     * Method untuk mengubah seluruh variable menjadi string
-	     * 
 	     * @return string of all variable
 	     */
 	    @Override

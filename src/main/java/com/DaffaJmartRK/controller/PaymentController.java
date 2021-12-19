@@ -17,7 +17,7 @@ import com.DaffaJmartRK.dbjson.JsonTable;
 
 /**
  * Class untuk mengatur pembayaran yang terjadi pada jmart
- * @author ASUS
+ * @author M. Daffa Ajiputra
  * @version Final
  */
 @RequestMapping("/payment")
@@ -33,17 +33,20 @@ public class PaymentController implements BasicGetController<Payment>{
 	@JsonAutowired(filepath = "C:\\Users\\ASUS\\Documents\\jmart\\json\\randomPaymentList.json", value = Payment.class)
 	public static JsonTable<Payment> paymentTable;
 	public static ObjectPoolThread<Payment> poolThread = new ObjectPoolThread<Payment>("Thread", PaymentController::timekeeper);
+	/**
+	 * Method untuk mengambil paymentTable
+	 */
 	@Override
 	public JsonTable<Payment> getJsonTable() {
 		return paymentTable;
 	}
 	
 	/**
-	 * 
-	 * @param id
-	 * @param page
-	 * @param pageSize
-	 * @return
+	 * Method untuk mendapatkan invoice dari product milik seller
+	 * @param id		product Id
+	 * @param page		page number
+	 * @param pageSize	ukuran page
+	 * @return pageInvoice
 	 */
 	@GetMapping("/{id}/page")
     @ResponseBody List<Payment> getInvoices(@PathVariable int id, @RequestParam(defaultValue="0") int page, @RequestParam(defaultValue="1000") int pageSize){
@@ -66,7 +69,7 @@ public class PaymentController implements BasicGetController<Payment>{
 	 * @param id		account id
 	 * @param page		page number
 	 * @param pageSize	ukuran page
-	 * @return
+	 * @return paginate
 	 */
     @GetMapping("/{id}/purchases/page")
     @ResponseBody List<Payment> getMyInvoices(@PathVariable int id, @RequestParam(defaultValue="0") int page, @RequestParam(defaultValue="1000") int pageSize){
@@ -75,12 +78,12 @@ public class PaymentController implements BasicGetController<Payment>{
     
     /**
      * Method untuk membuat invoice dari pembelian
-     * @param buyerId
-     * @param productId
-     * @param productCount
-     * @param shipmentAddress
-     * @param shipmentPlan
-     * @return
+     * @param buyerId			id pembeli
+     * @param productId			id produk
+     * @param productCount		jumlah produk
+     * @param shipmentAddress	alamat produk
+     * @param shipmentPlan		tipe pengiriman
+     * @return newPayment
      */
 	@PostMapping("/create")
     public Payment create(@RequestParam int buyerId, @RequestParam int productId, @RequestParam int productCount, @RequestParam String shipmentAddress, @RequestParam byte shipmentPlan) {
@@ -103,7 +106,7 @@ public class PaymentController implements BasicGetController<Payment>{
 	/**
 	 * Method untuk menerima pesanan dari customer
 	 * @param id
-	 * @return
+	 * @return condition
 	 */
 	@PostMapping("/{id}/accept")
 	public boolean accept(@RequestParam int id) {
@@ -118,7 +121,7 @@ public class PaymentController implements BasicGetController<Payment>{
 	/**
 	 * Method untuk menggagalkan transaksi yang sedang berlangsung
 	 * @param id
-	 * @return
+	 * @return condition
 	 */
 	@PostMapping("/{id}/cancel")
 	public boolean cancel(@RequestParam int id) {
@@ -132,10 +135,10 @@ public class PaymentController implements BasicGetController<Payment>{
 	}
 	
 	/**
-	 * 
+	 * Method untuk menyelesaikan pembayaran 
 	 * @param id
 	 * @param receipt
-	 * @return
+	 * @return condition
 	 */
 	@PostMapping("/{id}/submit")
 	public boolean submit(@RequestParam int id, @RequestParam String receipt) {
@@ -148,7 +151,11 @@ public class PaymentController implements BasicGetController<Payment>{
 		}
 		return false;
 	}
-	
+	/**
+     * Method untuk membatasi waktu pembayaran
+     * @param payment	object payment
+     * @return condition
+     */
 	private static boolean timekeeper(Payment payment) {
 		if (payment.history.isEmpty()) {
             return false;
